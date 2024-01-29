@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  name String @db.VarChar(120)
+  email String @db.VarChar(120) @unique
+  password String @db.VarChar(255)
+  phone_number String @db.Char(11)
+  profile_img String @default("https://img.freepik.com/vetores-premium/icones-e-notificacoes-planas-do-instagram_619991-50.jpg")
+  createdAt DateTime @default(now())
+
+  @@map("users")
+}
+
+model Contact {
+  id String @id @default(uuid())
+  name String @db.VarChar(120)
+  email String @db.VarChar(120) @unique
+  phone_number String @db.Char(11)
+  createdAt DateTime @default(now())
+  isActive Boolean @default(true)
+
+  @@map("contacts")
+}
