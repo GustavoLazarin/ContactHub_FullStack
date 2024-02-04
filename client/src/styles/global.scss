@@ -1,0 +1,18 @@
+:root {
+    --color-brand-1: #22B8CF;
+    --color-brand-2: #66D9E8;
+    --color-brand-3: #C5F6FA;
+    --color-danger: #B93030;
+    --color-white: #F8F9FA;
+    --color-gray-1: #868E96;
+    --color-gray-2: #343B41;
+    --color-gray-3: #212529;
+    --color-gray-4: #121214;
+
+    --font-primary: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--color-brand-3);
+    height: 100vh;
+}

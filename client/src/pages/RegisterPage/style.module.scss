@@ -1,0 +1,42 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-brand-3);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer {
+    width: 60vw;
+    height: 60vh;
+    background-color: var(--color-brand-1);
+    border-radius: 26px;
+
+    display: flex;
+    box-shadow: 7px 10px 25px 0px rgba(105,105,105,0.75);
+}
+
+.rightBox {
+    background-color: var(--color-white);
+    border-radius: 0 26px 26px 0;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    form {
+        height: 100%;
+        justify-content: space-evenly;
+    }
+}
+
+.leftBox {
+   @extend .rightBox;
+   border-radius: 26px 0 0 26px;
+   background-color: var(--color-brand-1);
+}
