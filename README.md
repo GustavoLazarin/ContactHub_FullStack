@@ -1,8 +1,7 @@
 # ContactHub_FullStack
 
-Aplicação web full stack para gerenciamento de usuários e contatos.
+**Aplicação web full stack para gerenciamento de usuários e contatos.**
 
-# API E-Commerce (Projeto Hackakenzie nov/23)
 
 baseurl: http://localhost:3000
 
@@ -14,7 +13,7 @@ baseurl: http://localhost:3000
 Rota responsavel por cadastrar um novo usuário.
 
 
-Corpo de requisição:
+**Corpo de requisição:**
 
 ```JSON
 {
@@ -59,11 +58,9 @@ Corpo de requisição:
 Rota responsavel por retornar todos os usuários.
 
 
-Corpo de requisição:
-<br>
-```JSON
-Sem corpo de requisição.
-```
+**Corpo de requisição:**
+
+`Sem corpo de requisição.`
 
 <details>
     <summary>Segurança</summary>
@@ -107,16 +104,13 @@ Sem corpo de requisição.
 Rota responsavel por retornar usuário por id.
 
 
-Corpo de requisição:
-<br>
-```JSON
-Sem corpo de requisição.
-```
-Exemplo de rota:
+**Corpo de requisição:**
 
-```JSON
-http://localhost:3000/users/3eed020a-4813-4d5c-b5be-71c513066507
-```
+`Sem corpo de requisição.`
+
+**Exemplo de rota:**
+
+`http://localhost:3000/users/3eed020a-4813-4d5c-b5be-71c513066507`
 
 <details>
     <summary>Segurança</summary>
@@ -150,7 +144,7 @@ http://localhost:3000/users/3eed020a-4813-4d5c-b5be-71c513066507
 Rota responsavel por editar usuário por id.
 
 
-Corpo de requisição:
+**Corpo de requisição:**
 
 ```JSON
 {
@@ -191,17 +185,13 @@ Corpo de requisição:
 Rota responsavel por deletar usuário por id.
 
 
-Corpo de requisição:
+**Corpo de requisição:**
 
-```JSON
-Sem corpo de requisição.
-```
+`Sem corpo de requisição.`
 
-Exemplo de rota:
+**Exemplo de rota:**
 
-```JSON
-http://localhost:3000/users/3eed020a-4813-4d5c-b5be-71c513066507
-```
+`http://localhost:3000/users/3eed020a-4813-4d5c-b5be-71c513066507`
 
 <details>
 <summary>Segurança</summary>
@@ -217,9 +207,8 @@ http://localhost:3000/users/3eed020a-4813-4d5c-b5be-71c513066507
 <br>
 204 - No content:
 
-```JSON
-Sem corpo de retorno.
-```
+`Sem corpo de retorno.`
+
 </details>
 
 <hr />
@@ -232,7 +221,7 @@ Sem corpo de retorno.
 Rota responsavel por cadastrar um novo contato.
 
 
-Corpo de requisição:
+**Corpo de requisição:**
 
 ```JSON
 {
@@ -279,11 +268,9 @@ Corpo de requisição:
 Rota responsavel por retornar todos os contatos do usuário logado.
 
 
-Corpo de requisição:
-<br>
-```JSON
-Sem corpo de requisição.
-```
+**Corpo de requisição:**
+
+`Sem corpo de requisição.`
 
 <details>
     <summary>Segurança</summary>
@@ -335,16 +322,13 @@ Sem corpo de requisição.
 Rota responsavel por retornar contato por id.
 
 
-Corpo de requisição:
-<br>
-```JSON
-Sem corpo de requisição.
-```
-Exemplo de rota:
+**Corpo de requisição:**
 
-```JSON
-http://localhotst.3000/contacts/da16a940-5641-41a9-b9cc-8de318f9f010
-```
+`Sem corpo de requisição.`
+
+**Exemplo de rota:**
+
+`http://localhotst.3000/contacts/da16a940-5641-41a9-b9cc-8de318f9f010`
 
 <details>
     <summary>Segurança</summary>
@@ -382,7 +366,7 @@ http://localhotst.3000/contacts/da16a940-5641-41a9-b9cc-8de318f9f010
 Rota responsavel por editar contato por id.
 
 
-Corpo de requisição:
+**Corpo de requisição:**
 
 ```JSON
 {
@@ -427,17 +411,13 @@ Corpo de requisição:
 Rota responsavel por deletar contato por id.
 
 
-Corpo de requisição:
+**Corpo de requisição:**
 
-```JSON
-Sem corpo de requisição.
-```
+`Sem corpo de requisição.`
 
-Exemplo de rota:
+**Exemplo de rota:**
 
-```JSON
-http://localhost:3000/contacts/da16a940-5641-41a9-b9cc-8de318f9f010
-```
+`http://localhost:3000/contacts/da16a940-5641-41a9-b9cc-8de318f9f010`
 
 <details>
 <summary>Segurança</summary>
@@ -453,9 +433,9 @@ http://localhost:3000/contacts/da16a940-5641-41a9-b9cc-8de318f9f010
 <br>
 204 - No content:
 
-```JSON
-Sem corpo de retorno.
-```
+
+`Sem corpo de retorno.`
+
 </details>
 
 <hr />
