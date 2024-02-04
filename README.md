@@ -165,7 +165,7 @@ Rota responsavel por editar usuário por id.
 <details>
 <summary>Retornos</summary>
 <br>
-201 - Created:
+200 - OK:
 
 ```JSON
 {
@@ -387,7 +387,7 @@ Rota responsavel por editar contato por id.
 <details>
 <summary>Retornos</summary>
 <br>
-201 - Created:
+200 - OK:
 
 ```JSON
 {
