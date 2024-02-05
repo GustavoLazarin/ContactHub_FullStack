@@ -18,3 +18,5 @@ export const registerSchema = z.object({
     message: 'As senhas não conferem.',
     path: ['confirmPass'] 
 })
+
+export type TRegisterFormData = z.infer<typeof registerSchema>

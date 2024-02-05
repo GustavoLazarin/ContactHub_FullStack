@@ -39,7 +39,7 @@ h1, h2, h3, p, span, label, input, button, select, a {
     }
 
     &.danger {
-        color: var(--color-danger);
+        color: var(--color-danger) !important;
     }
 }
 

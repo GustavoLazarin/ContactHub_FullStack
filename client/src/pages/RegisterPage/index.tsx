@@ -34,7 +34,7 @@ export const RegisterPage = () => {
                             <Input id='profile_img' label='Imagem de perfil' placeholder='Ex: http://link-da-imagem.com.br' error={errors.profile_img} {...register('profile_img')}/>
                         <button className='primary'>Enviar</button>
                         </form>
-                        <p>Já possui uma conta? <a href='/login' className='primary'>Entrar</a></p>
+                        <p>Já possui uma conta? <a href='/' className='primary'>Entrar</a></p>
                     </div>
                 </div>
             </main>
