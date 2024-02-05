@@ -7,4 +7,15 @@ a, button {
         height: clamp(2rem, 6vw , 2.5rem);
         font-size: 0.8rem;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .4;
+    }
+}
+
+a {
+    &:hover {
+        text-decoration: underline;
+    }
 }

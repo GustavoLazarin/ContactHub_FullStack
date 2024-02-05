@@ -3,15 +3,20 @@ import { useForm } from 'react-hook-form';
 import styles from './style.module.scss';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { registerSchema } from './registerFormSchema';
+import { IUserContext, useUserContext } from '../../providers/UserProvider';
+import { Spinner } from '../../components/Spinner';
+import { Link } from 'react-router-dom';
 
 export const RegisterPage = () => {
+
+    const { signUp, isLoading } = useUserContext() as IUserContext;
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: zodResolver(registerSchema)
     })
 
     const submit = (formData: any) => {
-        console.log(formData);
+        signUp(formData);
     }
 
     return (
@@ -32,9 +37,9 @@ export const RegisterPage = () => {
                         <form className='form-box' onSubmit={handleSubmit(submit)}>
                             <Input id='phone_number' label='Telefone' placeholder='Ex: 45999990000' error={errors.phone_number} {...register('phone_number')}/>
                             <Input id='profile_img' label='Imagem de perfil' placeholder='Ex: http://link-da-imagem.com.br' error={errors.profile_img} {...register('profile_img')}/>
-                        <button className='primary'>Enviar</button>
+                        <button className='primary button' disabled={isLoading}>{isLoading ? <Spinner/> : "Cadastrar"}</button>
                         </form>
-                        <p>Já possui uma conta? <a href='/' className='primary'>Entrar</a></p>
+                        <p>Já possui uma conta? <Link to='/' className='primary'>Entrar</Link></p>
                     </div>
                 </div>
             </main>

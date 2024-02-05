@@ -13,7 +13,8 @@ export const registerSchema = z.object({
     .regex(/(?=.*?[a-z])/, 'A senha deve conter pelo menos uma letra minúscula')
     .regex(/(?=.*?[0-9])/, 'A senha deve conter pelo menos um número.'),
   confirmPass: z.string().min(1, 'É necessário confirmar a senha.'),
-  phone_number: z.string().length(11, 'O número deve conter 11 digitos.')
+  phone_number: z.string().length(11, 'O número deve conter 11 digitos.'),
+  profile_img: z.string().nullish()
 }).refine(({password, confirmPass})=> password === confirmPass , {
     message: 'As senhas não conferem.',
     path: ['confirmPass'] 
