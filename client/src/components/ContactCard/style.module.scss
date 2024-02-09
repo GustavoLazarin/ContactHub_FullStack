@@ -1,0 +1,62 @@
+.card {
+    width: 100%;
+    max-width: 60vw;
+    height: 7rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: var(--color-white);
+    box-shadow: 5px 5px 10px 1px rgba(105, 105, 105, .5);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .cardHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+
+        .cardImg {
+            display: flex;
+            img{
+                max-width: 50px;
+            }
+        }
+
+        .infos {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+
+            div {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+
+                svg {
+                    width: 1.5rem;
+                    height: 1.5rem;
+                }
+            }
+        }
+    }
+
+    .cardButtons {
+        display: flex;
+        gap: 1rem;
+
+        button {
+            height: auto;
+            svg {
+                width: 2rem;
+                height: 2rem;
+                transition: .5s;
+
+                &:hover {
+                    color: var(--color-brand-1);
+                }
+            }
+        }
+    }
+}

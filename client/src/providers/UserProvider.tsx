@@ -8,12 +8,12 @@ import { jwtDecode } from "jwt-decode";
 
 interface IUserContextProps {
     children: React.ReactNode
-}
+};
 
 interface IUser {
     id: string
     profile_img: string
-}
+};
 
 export interface IUserContext {
     login: (formData: TLoginFormData) => Promise<void>
@@ -21,7 +21,7 @@ export interface IUserContext {
     signUp: (formData: TRegisterFormData) => Promise<void>
     isLoading: boolean,
     user: IUser | null
-}
+};
 
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -37,7 +37,6 @@ export const UserProvider = ({children}: IUserContextProps) => {
         const token = localStorage.getItem("contact_hub:@token");
         if (token) {
             decodeUser(token);
-            navigate("/dashboard");
         }
     }, [])
     
@@ -98,4 +97,4 @@ export const UserProvider = ({children}: IUserContextProps) => {
     };
 
     return  <UserContext.Provider value={values}>{children}</UserContext.Provider>
-}
+};

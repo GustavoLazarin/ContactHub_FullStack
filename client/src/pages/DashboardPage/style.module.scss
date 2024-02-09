@@ -1,7 +1,10 @@
 .container {
-    margin: 5rem auto;
-    max-width: 70vw;
-    background-color: white;
+    width: 100%;
+    padding: 5rem 1rem;
 
-    display: flex;
+    .cardContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
