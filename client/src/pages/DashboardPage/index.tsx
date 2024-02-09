@@ -3,11 +3,11 @@ import styles from "./style.module.scss";
 
 export const DashboardPage = () => {
     return (
-        <div className={styles.fullPage}>
+        <>
             <Header/>
-            <main>
-
+            <main className={styles.container}>
+                
             </main>
-        </div>
+        </>
     )
 };

@@ -1,19 +1,26 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import { TLoginFormData } from "../pages/LoginPage/loginFormSchema";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 import { TRegisterFormData } from "../pages/RegisterPage/registerFormSchema";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 interface IUserContextProps {
     children: React.ReactNode
+}
+
+interface IUser {
+    id: string
+    profile_img: string
 }
 
 export interface IUserContext {
     login: (formData: TLoginFormData) => Promise<void>
     logout: () => void
     signUp: (formData: TRegisterFormData) => Promise<void>
-    isLoading: boolean
+    isLoading: boolean,
+    user: IUser | null
 }
 
 
@@ -24,15 +31,32 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({children}: IUserContextProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
+    const [user, setUser] = useState<IUser | null>(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem("contact_hub:@token");
+        if (token) {
+            decodeUser(token);
+            navigate("/dashboard");
+        }
+    }, [])
     
     const navigate = useNavigate();
+
+    const decodeUser = (token: string) => {
+        const decoded: any = jwtDecode(token);
+        const {profile_img, sub} = decoded;
+        setUser({id: sub, profile_img})
+    };
 
     const login = async (formData: TLoginFormData) => {
         try {
             setIsLoading(true);
             const { data } = await api.post("/login", formData);
             const { token } = data;
-            localStorage.setItem("contact_hub:@token", token)
+            localStorage.setItem("contact_hub:@token", token);
+            api.defaults.headers.common.Authorization = `Bearer ${token}`
+            decodeUser(token);
             navigate("/dashboard");
         } catch (error: any) {
             if (error.response.data.statusCode === 401) {
@@ -69,7 +93,8 @@ export const UserProvider = ({children}: IUserContextProps) => {
         login,
         logout,
         signUp,
-        isLoading
+        isLoading,
+        user
     };
 
     return  <UserContext.Provider value={values}>{children}</UserContext.Provider>
