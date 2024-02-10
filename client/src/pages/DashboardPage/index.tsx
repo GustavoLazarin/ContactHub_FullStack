@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Header } from "../../components/Header";
 import styles from "./style.module.scss";
-import { IContactProvider, useContactProvider } from "../../providers/ContactProvider";
+import { IContactContext, useContactContext } from "../../providers/ContactProvider";
 import { ContactCard } from "../../components/ContactCard";
+import { CreateContactModal } from "../../components/modals/CreateContactModal";
 
 export const DashboardPage = () => {
 
-    const { getAllContacts, contacts } = useContactProvider() as IContactProvider;
+    const { getAllContacts, contacts, isCreateModalOpen } = useContactContext() as IContactContext;
 
     useEffect(() => {
         getAllContacts()
@@ -21,6 +22,7 @@ export const DashboardPage = () => {
                     {contacts.map(contact => <ContactCard key={contact.id} contact={contact}/>)}
                 </ul>
             </main>
+            {isCreateModalOpen && <CreateContactModal/>}
         </>
     )
 };

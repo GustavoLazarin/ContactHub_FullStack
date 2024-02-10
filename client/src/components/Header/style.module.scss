@@ -9,6 +9,18 @@
 
     background-color: var(--color-brand-1);
 
+    button {
+        transition: .5s;
+        &:hover {
+            transform: scale(1.2);
+        }
+
+        svg {
+            transition: .5s;
+            color: var(--color-white);
+        }
+    }
+
     img {
         width: 105px;
     }

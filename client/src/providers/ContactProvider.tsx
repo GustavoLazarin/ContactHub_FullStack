@@ -1,24 +1,30 @@
 import { createContext, useContext, useState } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
+import { IContact, IContactCreate } from "../components/modals/CreateContactModal/createContactFormSchema";
 
 interface IContactContextProps {
     children: React.ReactNode
 };
 
-export interface IContactProvider {
+export interface IContactContext {
     getAllContacts: () => Promise<void>
-    contacts: any                                   //TROCAR TIPAAGEM <<<<<<<<<<<<<<----------------------------
+    contacts: IContact[] | []        
+    isCreateModalOpen: boolean
+    setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    createContact: (formData: IContactCreate) => Promise<void>
 };
 
-export const ContactContext = createContext<IContactProvider>({} as IContactProvider);
+export const ContactContext = createContext<IContactContext>({} as IContactContext);
 
-export const useContactProvider = () => useContext(ContactContext);
+export const useContactContext = () => useContext(ContactContext);
 
 export const ContactProvider = ({children}: IContactContextProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [contacts, setContacts] = useState([]);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [contacts, setContacts] = useState<IContact[]>([]);
 
     const getAllContacts = async () => {
         try {
@@ -37,9 +43,24 @@ export const ContactProvider = ({children}: IContactContextProps) => {
         }
     }
 
-    const values: IContactProvider = {
+    const createContact = async (formData: IContactCreate) => {
+        try {
+            setIsLoading(true);
+            const { data } = await api.post("/contacts", formData);
+            setContacts([...contacts, data])
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const values: IContactContext = {
         getAllContacts,
-        contacts
+        contacts,
+        isCreateModalOpen,
+        setIsCreateModalOpen,
+        createContact
     }
 
     return (
