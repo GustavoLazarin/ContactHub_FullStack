@@ -9,15 +9,15 @@ import { IContactContext, useContactContext } from "../../../providers/ContactPr
 
 export const CreateContactModal = () => {
 
-    const { isCreateModalOpen, setIsCreateModalOpen, createContact } = useContactContext() as IContactContext;
+    const { setIsCreateModalOpen, createContact } = useContactContext() as IContactContext;
 
-    const {register, handleSubmit, formState: { errors }} = useForm({
+    const {register, reset, handleSubmit, formState: { errors }} = useForm({
         resolver: zodResolver(createContactFormSchema)
     })
 
 
     const submit = (formData: IContactCreate) => {
-        createContact(formData);
+        createContact(formData, reset);
     }
 
     return (
@@ -33,13 +33,14 @@ export const CreateContactModal = () => {
                         <Input label="Email" id="email" placeholder="Email do contato" error={errors.email} {...register("email")}/>
                         <Input label="Telefone" id="phone_number" placeholder="Telefone do contato" error={errors.phone_number} {...register("phone_number")}/>
                         <label htmlFor="status">Tipo <GoTriangleDown /></label>
-                        <select id="status" defaultValue="" {...register("status")}>
+                        <select id="status" defaultValue="" {...register("type")}>
                             <option value="" disabled>Selecione o tipo de contato</option>
                             <option value="executive">Executivo</option>
                             <option value="business">Comercial</option>
                             <option value="supplier">Fornecedor</option>
                             <option value="storage">Armazém</option>
                         </select>
+                        {errors.type? <p className="headline danger">Obrigatório.</p> : null}
                         <button className="primary button" type="submit">Cadastrar Contato</button>
                     </form>
                 </div>

@@ -2,6 +2,7 @@
     width: 100%;
     height: 100vh;
     background: rgba(0,0,0,.3);
+    animation: fade both 1s;
     
     display: flex;
     align-items: center;
@@ -18,6 +19,7 @@
     background: var(--color-white);
     box-shadow: 2px 5px 14px 5px rgba(105, 105, 105, 0.75);
     overflow: hidden;
+    animation: slide-in both 1s;
 
     display: flex;
     flex-direction: column;
@@ -59,5 +61,23 @@
                 height: clamp(2.375rem, 4vw, 3rem);
             }
         }
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(-350px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }

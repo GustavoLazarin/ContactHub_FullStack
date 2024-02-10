@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { api } from "../services/api";
 import { toast } from "react-toastify";
 import { IContact, IContactCreate } from "../components/modals/CreateContactModal/createContactFormSchema";
+import { UseFormReset, FieldValues } from "react-hook-form";
 
 interface IContactContextProps {
     children: React.ReactNode
@@ -12,7 +13,8 @@ export interface IContactContext {
     contacts: IContact[] | []        
     isCreateModalOpen: boolean
     setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-    createContact: (formData: IContactCreate) => Promise<void>
+    createContact: (formData: IContactCreate, reset: UseFormReset<FieldValues>) => Promise<void>
+    deleteContact: (id: string) => Promise<void>
 };
 
 export const ContactContext = createContext<IContactContext>({} as IContactContext);
@@ -41,26 +43,42 @@ export const ContactProvider = ({children}: IContactContextProps) => {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
-    const createContact = async (formData: IContactCreate) => {
+    const createContact = async (formData: IContactCreate, reset: UseFormReset<FieldValues>) => {
         try {
             setIsLoading(true);
             const { data } = await api.post("/contacts", formData);
             setContacts([...contacts, data])
+            reset();
+            setIsCreateModalOpen(false);
         } catch (error) {
             console.log(error)
         } finally {
             setIsLoading(false);
         }
-    }
+    };
+
+    const deleteContact = async (id: string) => {
+        try {
+            setIsLoading(true)
+            await api.delete(`/contacts/${id}`);
+            toast.success("Contato removido.")
+            setContacts(contacts.filter(contact => contact.id !== id))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const values: IContactContext = {
         getAllContacts,
         contacts,
         isCreateModalOpen,
         setIsCreateModalOpen,
-        createContact
+        createContact,
+        deleteContact,
     }
 
     return (

@@ -1,6 +1,10 @@
 import styles from "./style.module.scss";
-import executiveImg from "../../assets/contact-executive.png"
+import executiveImg from "../../assets/contact-executive.png";
+import businessImg from "../../assets/contact-business.png";
+import supplierImg from "../../assets/contact-supplier.png";
+import storageImg from "../../assets/contact-storage.png";
 import { MdMail, MdPhone, MdEdit, MdDeleteForever } from "react-icons/md";
+import { IContactContext, useContactContext } from "../../providers/ContactProvider";
 
 interface ICardProps {
     contact: any
@@ -9,10 +13,18 @@ interface ICardProps {
 export const ContactCard = ({contact}: ICardProps) => {
     const { id, type, name, email, phone_number  } = contact;
 
+    const { deleteContact } = useContactContext() as IContactContext;
+
     const image = () => {
         switch(type) {
             case "executive":
                 return executiveImg;
+            case "business":
+                return businessImg;
+            case "supplier":
+                return supplierImg;
+            case "storage":
+                return storageImg;
             default:
                 return "null";
         }
@@ -39,7 +51,7 @@ export const ContactCard = ({contact}: ICardProps) => {
             </div>
             <div className={styles.cardButtons}>
                 <button><MdEdit /></button>
-                <button><MdDeleteForever/></button>
+                <button onClick={() => deleteContact(id)}><MdDeleteForever/></button>
             </div>
         </li>
     )
