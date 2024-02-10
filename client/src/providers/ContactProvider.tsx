@@ -3,6 +3,7 @@ import { api } from "../services/api";
 import { toast } from "react-toastify";
 import { IContact, IContactCreate } from "../components/modals/CreateContactModal/createContactFormSchema";
 import { UseFormReset, FieldValues } from "react-hook-form";
+import { IContactEdit } from "../components/modals/EditContactModal/editContactFormSchema";
 
 interface IContactContextProps {
     children: React.ReactNode
@@ -14,7 +15,10 @@ export interface IContactContext {
     isCreateModalOpen: boolean
     setIsCreateModalOpen: React.Dispatch<React.SetStateAction<boolean>>
     createContact: (formData: IContactCreate, reset: UseFormReset<FieldValues>) => Promise<void>
+    editContact: (formData: IContactEdit, id: string) => Promise<void>
     deleteContact: (id: string) => Promise<void>
+    editingContact: IContact | null
+    setEditingContact: React.Dispatch<React.SetStateAction<IContact | null>>
 };
 
 export const ContactContext = createContext<IContactContext>({} as IContactContext);
@@ -25,7 +29,7 @@ export const ContactProvider = ({children}: IContactContextProps) => {
 
     const [isLoading, setIsLoading] = useState(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [editingContact, setEditingContact] = useState<IContact | null>(null);
     const [contacts, setContacts] = useState<IContact[]>([]);
 
     const getAllContacts = async () => {
@@ -59,6 +63,19 @@ export const ContactProvider = ({children}: IContactContextProps) => {
         }
     };
 
+    const editContact = async (formData: IContactEdit, id: string) => {
+        try {
+            setIsLoading(true);
+            const { data } = await api.patch(`contacts/${id}`, formData);
+            setEditingContact(null);
+            setContacts(contacts.map(contact => (contact.id !== id ? contact : data )))
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     const deleteContact = async (id: string) => {
         try {
             setIsLoading(true)
@@ -78,7 +95,10 @@ export const ContactProvider = ({children}: IContactContextProps) => {
         isCreateModalOpen,
         setIsCreateModalOpen,
         createContact,
+        editContact,
         deleteContact,
+        editingContact,
+        setEditingContact,
     }
 
     return (

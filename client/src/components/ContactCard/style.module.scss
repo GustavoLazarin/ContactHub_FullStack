@@ -54,8 +54,8 @@
                 transition: .5s;
 
                 &:hover {
-                    // color: var(--color-brand-1);
                     transform: scale(1.2);
+                    filter: brightness(4);
                 }
             }
         }

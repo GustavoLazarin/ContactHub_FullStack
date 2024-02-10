@@ -13,7 +13,7 @@ interface ICardProps {
 export const ContactCard = ({contact}: ICardProps) => {
     const { id, type, name, email, phone_number  } = contact;
 
-    const { deleteContact } = useContactContext() as IContactContext;
+    const { setEditingContact, deleteContact } = useContactContext() as IContactContext;
 
     const image = () => {
         switch(type) {
@@ -50,7 +50,7 @@ export const ContactCard = ({contact}: ICardProps) => {
                 </div>
             </div>
             <div className={styles.cardButtons}>
-                <button><MdEdit /></button>
+                <button><MdEdit onClick={() => setEditingContact(contact)}/></button>
                 <button onClick={() => deleteContact(id)}><MdDeleteForever/></button>
             </div>
         </li>

@@ -21,3 +21,6 @@ export const registerSchema = z.object({
 })
 
 export type TRegisterFormData = z.infer<typeof registerSchema>
+export interface IUser extends TRegisterFormData {
+  id: string
+}
