@@ -2,10 +2,24 @@
 
 **Aplicação web full stack para gerenciamento de usuários e contatos.**
 
+## Instalação e inicialização
 
-baseurl: http://localhost:3000
+client:
+```NODE
+- npm install
+- npm run dev
+```
+
+server:
+```NODE
+- npm install
+- npm run start:dev
+```
+<hr/>
+
 
 # Rotas
+baseurl: http://localhost:3000
 
 # USERS
 
