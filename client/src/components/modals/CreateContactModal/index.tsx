@@ -16,7 +16,7 @@ export const CreateContactModal = () => {
     })
 
 
-    const submit = (formData: IContactCreate) => {
+    const submit = (formData: any) => {
         createContact(formData, reset);
     }
 
