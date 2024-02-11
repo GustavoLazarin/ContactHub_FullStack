@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+input, select {
+    border: none;
+    appearance: none;
+}
+
+input[type="password"] {
+    &::-ms-reveal, &::-ms-clear {
+        display: none;
+    }
+}
+
+button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}

@@ -1,0 +1,40 @@
+.container {
+    width: 100%;
+    padding: 3rem 10rem;
+
+    .profile {
+        padding: 2rem 1.5rem;
+        background-color: white;
+        border-radius: 26px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        .form {
+            gap: 1rem;
+        }
+
+        .danger {
+            background-color: var(--color-white);
+            background-size: 200% auto;
+            
+            &:hover {
+                transition: 3.5s;
+                color: var(--color-white);
+                animation: toRightTransition 3s ease-in-out;
+                background-image: linear-gradient(to right, var(--color-danger) 50%, var(--color-white) 50%);
+            }
+
+            @keyframes toRightTransition {
+                0%{
+                    background-position: 100%;
+                }   
+                100% {
+                    background-position: 0;
+                }             
+            }
+        }
+    }
+}

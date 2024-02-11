@@ -1,0 +1,68 @@
+.form-box {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+
+    &.white {
+        label {
+            color: var(--color-white)
+        }
+    }
+}
+
+.input-box {
+    @extend .form-box;
+    width: 100%;
+    gap: 10px;
+}
+
+input, select {
+    width: 100%;
+    height: 3rem;
+    padding: 0px 1rem;
+    border: 1px solid var(--color-gray-3);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-gray-3);
+    @extend .paragraph;
+
+
+    &::placeholder {
+        @extend .paragraph;
+        color: var(--color-gray-1);
+    }
+
+    &:focus {
+        outline: 1px solid var(--color-gray-1);
+    }
+
+    option[disabled] {
+        color: var(--color-gray-1);
+    }
+}
+
+.button {
+    width: 100%;
+    height: 3rem;
+    padding: 0px 1rem;
+    border: 1px solid var(--color-gray-3);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-gray-3);
+    transition: .5s;
+
+    &:hover {
+        background-color: var(--color-brand-3);
+    }
+
+    &.primary {
+        background-color: var(--color-brand-1);
+        color: var(--color-white);
+        border: none;
+
+        &:hover {
+            background-color: var(--color-brand-2);
+        }
+    }
+}
