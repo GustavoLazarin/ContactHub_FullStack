@@ -43,6 +43,7 @@ export const UserProvider = ({children}: IUserContextProps) => {
         const token = localStorage.getItem("contact_hub:@token");
         if (token) {
             decodeUser(token);
+            navigate("/dashboard");
         }
     }, [])
     
