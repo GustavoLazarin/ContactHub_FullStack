@@ -20,6 +20,7 @@ export const DashboardPage = () => {
             <main className={styles.container}>
                 <ul className={styles.cardContainer}>
                     {contacts.map(contact => <ContactCard key={contact.id} contact={contact}/>)}
+                    {contacts.length < 1 && <h3>Nenhum contato para exibir.</h3>}
                 </ul>
             </main>
             {isCreateModalOpen && <CreateContactModal/>}

@@ -18,10 +18,22 @@
 
         .danger {
             background-color: var(--color-white);
-
+            background-size: 200% auto;
+            
             &:hover {
+                transition: 3.5s;
                 color: var(--color-white);
-                background-color: var(--color-danger);
+                animation: toRightTransition 3s ease-in-out;
+                background-image: linear-gradient(to right, var(--color-danger) 50%, var(--color-white) 50%);
+            }
+
+            @keyframes toRightTransition {
+                0%{
+                    background-position: 100%;
+                }   
+                100% {
+                    background-position: 0;
+                }             
             }
         }
     }

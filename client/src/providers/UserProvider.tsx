@@ -25,6 +25,7 @@ export interface IUserContext {
     getUser: (id: string) => Promise<void>
     user: IUser | null
     editUser: (formData: TEditUser, id: string) => Promise<void>
+    deleteUser: (id: string) => Promise<void>
 };
 
 
@@ -63,6 +64,7 @@ export const UserProvider = ({children}: IUserContextProps) => {
             const { token } = data;
             localStorage.setItem("contact_hub:@token", token);
             api.defaults.headers.common.Authorization = `Bearer ${token}`
+            setUser(data);
             decodeUser(token);
             navigate("/dashboard");
         } catch (error: any) {
@@ -76,7 +78,8 @@ export const UserProvider = ({children}: IUserContextProps) => {
 
     const logout = () => {
         localStorage.removeItem("contact_hub:@token");
-        toast.success("Volte sempre!")
+        localStorage.removeItem("contact_hub:@user");
+        toast.success("Volte sempre! 😊")
         navigate("/");
     };
 
@@ -84,7 +87,7 @@ export const UserProvider = ({children}: IUserContextProps) => {
         try {
             setIsLoading(true);
             const response = await api.post("/users", formData);
-            toast.success(`${response.data.name} registrado(a) com sucesso!`)
+            toast.success(`${response.data.name} registrado(a) com sucesso! 🚀`)
             navigate("/");
         } catch (error: any) {
             console.log(error);
@@ -112,10 +115,27 @@ export const UserProvider = ({children}: IUserContextProps) => {
         try {
             setIsLoading(true);
             const { data } = await api.patch(`/users/${id}`, formData);
-            toast.success("Informações editadas com sucesso!")
+            toast.success("Informações editadas com sucesso! 📋")
             setUser(data);
+            setUserInfo({id, profile_img: data.profile_img});
+
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const deleteUser = async (id: string) => {
+        try {
+            setIsLoading(true);
+            await api.delete(`/users/${id}`)
+            navigate("/");
+            toast.error("Conta de usuário deletada! 💣");
+            localStorage.removeItem("contact_hub:@token");
+            localStorage.removeItem("contact_hub:@user");
+        } catch (error) {
+            console.log(error);
         } finally {
             setIsLoading(false);
         }
@@ -129,7 +149,8 @@ export const UserProvider = ({children}: IUserContextProps) => {
         userInfo,
         getUser,
         user,
-        editUser
+        editUser,
+        deleteUser
     };
 
     return  <UserContext.Provider value={values}>{children}</UserContext.Provider>

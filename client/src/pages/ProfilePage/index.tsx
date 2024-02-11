@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import styles from "./style.module.scss";
 import { IUserContext, useUserContext } from "../../providers/UserProvider";
@@ -9,12 +9,12 @@ import { editUserFormSchema } from "./editUserFormSchema";
 
 export const ProfilePage = () => {
 
-    const { getUser, editUser, user, isLoading } =  useUserContext() as IUserContext;
+    const { getUser, editUser, deleteUser, user, isLoading } =  useUserContext() as IUserContext;
 
     useEffect(() => {
         const userId = JSON.parse(localStorage.getItem("contact_hub:@user")!).id;
         getUser(userId);
-    }, [])
+    }, []);
 
     const {register, handleSubmit, formState: {errors}} = useForm({
         resolver: zodResolver(editUserFormSchema),
@@ -22,9 +22,10 @@ export const ProfilePage = () => {
             name: user?.name,
             email: user?.email,
             phone_number: user?.phone_number,
-            profile_img: user?.profile_img
+            profile_img: user?.profile_img,
+            password: ""
         }
-    })
+    });
 
     const submit = (formData: any) => {
         const filteredData: any = {};
@@ -37,6 +38,33 @@ export const ProfilePage = () => {
 
         const userId = JSON.parse(localStorage.getItem("contact_hub:@user")!).id;
         editUser(filteredData, userId);
+    };
+
+    const [timeToDelete, setTimeToDelete] = useState(3);
+    const [timer, setTimer] = useState<any>(null)
+    
+    const handleMouseEnter = () => {
+        if (!timer) {
+            const interval = setInterval(() => {
+                if (timeToDelete > 0) {
+                    setTimeToDelete(prev => prev - 1)
+                }
+            }, 1000)
+            setTimer(interval);
+        }
+    };
+
+    const handleMouseLeave = () => {
+       setTimeToDelete(3);
+       clearInterval(timer);
+       setTimer(null)
+    };
+
+    const handleDeleteClick = () => {
+        if (timeToDelete <= 0) {
+            const userId = JSON.parse(localStorage.getItem("contact_hub:@user")!).id;
+            deleteUser(userId)
+        }
     };
 
     return (
@@ -56,7 +84,12 @@ export const ProfilePage = () => {
                             </div>
                         <button className='primary button' disabled={isLoading}>Salvar dados</button>
                         </form>
-                        <button className={`${styles.danger} button`} disabled={isLoading}>Excluir conta</button>
+                        <button className={`${styles.danger} button`}
+                            disabled={isLoading}
+                            onMouseEnter={handleMouseEnter}
+                            onMouseLeave={handleMouseLeave}
+                            onClick={handleDeleteClick}
+                        >{timeToDelete <= 0 ? "Excluir" : `Excluir (${timeToDelete}s)`}</button>
                 </section>
             </main>
         </>

@@ -7,6 +7,7 @@ import { MdAddCircleOutline, MdOutlineExitToApp } from "react-icons/md";
 export const Header = () => {
 
     const { userInfo, logout } = useUserContext() as IUserContext;
+    const userProfileImg = userInfo?.profile_img;
     const { setIsCreateModalOpen } = useContactContext() as IContactContext;
 
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ export const Header = () => {
             <h1 className="white" onClick={() => navigate("/dashboard")}>Contact_Hub</h1>
             <button title="Adicionar contato" aria-label="add-contact" onClick={() => setIsCreateModalOpen(true)}><MdAddCircleOutline size={40}/></button>
             <div className={styles.profileBox}>
-                <img src={userInfo ? userInfo.profile_img : "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg"} onClick={() => navigate("/profile")}/>
+                <img src={userProfileImg ? userProfileImg : "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg"} onClick={() => navigate("/profile")}/>
                 <button title="Sair" aria-label="logout" onClick={logout}><MdOutlineExitToApp size={40}/></button>
             </div>
         </header>
