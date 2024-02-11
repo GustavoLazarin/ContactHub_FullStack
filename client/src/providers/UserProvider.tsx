@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { IUser, TRegisterFormData } from "../pages/RegisterPage/registerFormSchema";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { TEditUser } from "../pages/ProfilePage/editUserFormSchema";
 
 interface IUserContextProps {
     children: React.ReactNode
@@ -22,6 +23,8 @@ export interface IUserContext {
     isLoading: boolean,
     userInfo: IUserInfo | null
     getUser: (id: string) => Promise<void>
+    user: IUser | null
+    editUser: (formData: TEditUser, id: string) => Promise<void>
 };
 
 
@@ -49,6 +52,8 @@ export const UserProvider = ({children}: IUserContextProps) => {
         const {profile_img, sub} = decoded;
         setUserInfo({id: sub, profile_img})
         localStorage.setItem("contact_hub:@user", JSON.stringify({profile_img, id: sub}));
+        localStorage.setItem("contact_hub:@token", token);
+        api.defaults.headers.common.Authorization = `Bearer ${token}`
     };
 
     const login = async (formData: TLoginFormData) => {
@@ -93,10 +98,26 @@ export const UserProvider = ({children}: IUserContextProps) => {
 
     const getUser = async (id: string) => {
         try {
+            setIsLoading(true);
             const { data } = await api.get(`/users/${id}`);
-            console.log(data);
+            setUser(data);
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const editUser = async (formData: TEditUser, id: string) => {
+        try {
+            setIsLoading(true);
+            const { data } = await api.patch(`/users/${id}`, formData);
+            toast.success("Informações editadas com sucesso!")
+            setUser(data);
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -106,7 +127,9 @@ export const UserProvider = ({children}: IUserContextProps) => {
         signUp,
         isLoading,
         userInfo,
-        getUser
+        getUser,
+        user,
+        editUser
     };
 
     return  <UserContext.Provider value={values}>{children}</UserContext.Provider>
