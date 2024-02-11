@@ -19,6 +19,7 @@ export interface IContactContext {
     deleteContact: (id: string) => Promise<void>
     editingContact: IContact | null
     setEditingContact: React.Dispatch<React.SetStateAction<IContact | null>>
+    isLoading: boolean
 };
 
 export const ContactContext = createContext<IContactContext>({} as IContactContext);
@@ -99,6 +100,7 @@ export const ContactProvider = ({children}: IContactContextProps) => {
         deleteContact,
         editingContact,
         setEditingContact,
+        isLoading
     }
 
     return (
