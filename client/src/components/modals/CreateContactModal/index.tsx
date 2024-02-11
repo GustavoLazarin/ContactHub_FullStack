@@ -4,7 +4,7 @@ import { GoTriangleDown } from "react-icons/go";
 import styles from "./style.module.scss"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { IContactCreate, createContactFormSchema } from "./createContactFormSchema"
+import { createContactFormSchema } from "./createContactFormSchema"
 import { IContactContext, useContactContext } from "../../../providers/ContactProvider";
 
 export const CreateContactModal = () => {
