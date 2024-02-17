@@ -4,17 +4,35 @@
 
 ## Instalação e inicialização
 
+**1- Clonagem do repositório**
+
+```NODE
+git clone git@github.com:Kenzie-Academy-Brasil-Developers/ContactHub_FullStack.git
+```
+
+Em seguida, abra o terminal no diretório em que voce realizou a clonagem e prossiga com os passos abaixo.
+
+**2 - Instalação de bibliotecas / dependencias + Execução**
+
 client:
 ```NODE
-- npm install
-- npm run dev
+cd client
+npm install
+npm run dev
 ```
 
 server:
+<br/>
+**OBS: Necessário possuir o banco de dados [PostgreSQL](https://www.postgresql.org/) instalado e configurado na maquina.**
 ```NODE
-- npm install
-- npm run start:dev
+cd ../server
+npm install
+npx prisma migrate dev --name initial     //garantia de execução das migrações
+npm run start:dev
 ```
+
+Antes de rodar o servidor, não se esqueça de criar um arquivo .env com as variaveis disponiveis no .env.example e atribuir os seus valores, substituindo o exemplo.
+
 <hr/>
 
 
