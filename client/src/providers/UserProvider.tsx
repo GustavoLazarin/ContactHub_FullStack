@@ -119,6 +119,7 @@ export const UserProvider = ({children}: IUserContextProps) => {
             toast.success("Informações editadas com sucesso! 📋")
             setUser(data);
             setUserInfo({id, profile_img: data.profile_img});
+            navigate("/dashboard");
 
         } catch (error) {
             console.log(error)
